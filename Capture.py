@@ -15,7 +15,7 @@ class LoadScreen:
     def __init__(self, region: tuple[int,int,int,int]=REGION):
         self.region = region
         self.camera = dxshot.create(region=self.region, output_color="RGB")
-        self.camera.start(target_fps=144, video_mode=True)
+        self.camera.start(target_fps=150, video_mode=True)
         
     def __iter__(self):
         return self

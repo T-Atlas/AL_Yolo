@@ -5,3 +5,14 @@ test_mss.py
 train_AL.py
 .vscode
 .idea/
+AL-YOLO-dataset/
+debug/
+yolov5/
+datasets/
+test.*
+v8*
+data.yaml
+data/
+yolov8*
+runs/
+test.*

@@ -6,12 +6,12 @@ from pynput import keyboard
 
 
 detector = YOLOv5Detector(
-    weights='./weights/best.pt',
-    data='./configs/AL_data.yaml',
+    weights='./v8s_best.pt',
+    data='./data.yaml',
     imgsz=(640, 640),
     conf_thres=0.45,
     iou_thres=0.45,
-    enemy_label=0,
+    enemy_label=1,
     device='cuda'
 )
 
