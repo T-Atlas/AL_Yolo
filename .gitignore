@@ -16,3 +16,4 @@ data/
 yolov8*
 runs/
 test.*
+*.pt

@@ -67,10 +67,10 @@ class YOLOv5Detector:
         self.listener.start()
         self.enemy_label=enemy_label
         self.pid_enable = True
-        self.pid_controller = PIDController(p_gain=0.2, i_gain=0.01, d_gain=0.05,output_limits=(-150, 150))
+        self.pid_controller = PIDController(p_gain=0.25, i_gain=0.15, d_gain=0.001, output_limits=(-150, 150))
         self.target_history = []
-        self.prediction_steps = 20  # 预测步长，根据需求调整
-        self.predictor_type = 'none'  # 预测器类型，目前支持"none"、"linear"、"kalman"和"exkf"预测，效果都不太好，有待改进
+        self.prediction_steps = 5  # 预测步长，根据需求调整
+        self.predictor_type = 'linear'  # 预测器类型，目前支持"none"、"linear"、"kalman"和"exkf"预测，效果都不太好，有待改进
         self.kf_x = KalmanFilter(process_noise=0.1, measurement_noise=0.1, estimated_error=0.1)
         self.kf_y = KalmanFilter(process_noise=0.1, measurement_noise=0.1, estimated_error=0.1)
         self.ekf = ExtendedKalmanFilter(process_noise_pos=0.1, process_noise_vel=0.1, measurement_noise=0.1)
@@ -223,6 +223,10 @@ class YOLOv5Detector:
                 if self.enable_mouse_lock and self.mouse_on_click and target[5] == self.enemy_label:
                     # only lock target when label is enemy and mouse is clicked
                     self.lock_target(target)
+                elif self.enable_mouse_lock and self.mouse_on_click and target[5] != self.enemy_label:
+                    self.pid_controller.reset()
+            else:
+                self.pid_controller.reset()
                 
             # FPS calculate
             if self.showFPS:
